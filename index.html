@@ -6,6 +6,12 @@
     <title>Cuaca</title>
 </head>
 <body>
+    <h2>Cuaca</h2>
+
+    <label for="lokasiInput">Lokasi: </label>
+    <input type="text" id="lokasiInput" placeholder="Masukkan nama kota">
+    <button id="btnGet">Get</button>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     Cuaca : <p id="lokasi"></p>
@@ -31,8 +37,9 @@
                 let kecamatan = data.location.tz_id;
                 let longitude = data.location.lon;
                 let latitude = data.location.lat;
-                v.innerHTML = suhu;
                 l.innerHTML = lokasi;
+
+                v.innerHTML = suhuC;
             },
             fail : function(error){
                 console.log(error);
