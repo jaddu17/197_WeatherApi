@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaca</title>
-</head>
-<body>
-    <h2>Cuaca</h2>
-
-    <label for="lokasiInput">Lokasi: </label>
+    <label for="lokasiInput"><b>Lokasi:</b></label>
     <input type="text" id="lokasiInput" placeholder="Masukkan nama kota">
     <button id="btnGet">Get</button>
+</head>
+<body>
+    
+    <h2>Cuaca</h2>
 
     <div class ="card" id="hasil" style="display:none;">
         <h3 id="namaLokasi"></h3>
         </div class="data">
-
+            <p><b>Suhu Celsius:</b> <span id="tempC"></span> °C</p>
+            <p><b>Suhu Fahrenheit:</b> <span id="tempF"></span> °F</p>
+            <p><b>Kelembapan:</b> <span id="humidity"></span>%</p>
+            <p><b>Negara:</b> <span id="country"></span></p>
+            <p><b>Provinsi:</b> <span id="region"></span></p>
+            <p><b>Kecamatan:</b> <span id="localtime"></span></p>
+            <p><b>Longitude:</b> <span id="lon"></span></p>
+            <p><b>Latitude:</b> <span id="lat"></span></p>
         <div>
     </div>
 
