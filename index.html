@@ -1,64 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuaca</title>
-    <label for="lokasiInput"><b>Lokasi:</b></label>
-    <input type="text" id="lokasiInput" placeholder="Masukkan nama kota">
-    <button id="btnGet">Get</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
-    
-    <h2>Cuaca</h2>
 
-    <div class ="card" id="hasil" style="display:none;">
-        <h3 id="namaLokasi"></h3>
-        </div class="data">
-            <p><b>Suhu Celsius:</b> <span id="tempC"></span> °C</p>
-            <p><b>Suhu Fahrenheit:</b> <span id="tempF"></span> °F</p>
-            <p><b>Kelembapan:</b> <span id="humidity"></span>%</p>
-            <p><b>Negara:</b> <span id="country"></span></p>
-            <p><b>Provinsi:</b> <span id="region"></span></p>
-            <p><b>Kecamatan:</b> <span id="localtime"></span></p>
-            <p><b>Longitude:</b> <span id="lon"></span></p>
-            <p><b>Latitude:</b> <span id="lat"></span></p>
-        <div>
+    <h1>Cuaca</h1>
+    <hr>
+
+    <label for="lokasiInput">Lokasi: </label>
+    <input type="text" id="lokasiInput" placeholder="Masukkan nama kota">
+    <button id="btnGet">Get</button>
+
+    <div class="card" id="hasil" style="display:none;">
+
+        <h3>Cuaca</h3>
+        <p>Suhu Celcius = <span id="tempC"></span> °C</p>
+        <p>Suhu Fahrenheit = <span id="tempF"></span> °F</p>
+        <p>Kelembapan = <span id="humidity"></span> %</p>
+
+        <h3>Lokasi</h3>
+        <p>Negara = <span id="country"></span></p>
+        <p>Provinsi = <span id="region"></span></p>
+        <p>Kecamatan = <span id="localtime"></span></p>
+        <p>Longitude = <span id="lon"></span></p>
+        <p>Latitude = <span id="lat"></span></p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    Cuaca : <p id="lokasi"></p>
-    <hr>
-    <div id="tampilan"></div>
-
     <script>
-        const urlapi = "http://api.weatherapi.com/v1/current.json?key=24397d7d84074ffbb1165711250710&q=Yogyakarta&aqi=no";
+        $("#btnGet").click(function () {
+            let lokasi = $("#lokasiInput").val();
 
-        $.ajax({
-            url : urlapi, 
-            method : "GET",
-            success : function(data){
-                console.log(data);
-                const v = document.getElementById("tampilan");
-                const l = document.getElementById("lokasi");
-                let suhuC = data.current.temp_c;
-                let suhuF = data.current.temp_f;
-                let kelembapan = data.current.humidity;
-                let lokasi = data.location.name;
-                let negara = data.location.country;
-                let provinsi = data.location.region;
-                let kecamatan = data.location.tz_id;
-                let longitude = data.location.lon;
-                let latitude = data.location.lat;
-                l.innerHTML = lokasi;
+            if (lokasi === "") {
+                alert("Masukkan nama kota terlebih dahulu!");
+                return;
+            }
 
-                v.innerHTML = suhuC;
-            },
-            fail : function(error){
-                console.log(error);
-            },
-        })
+            const urlapi = `http://api.weatherapi.com/v1/current.json?key=24397d7d84074ffbb1165711250710&q=${lokasi}&aqi=no`;
+
+            $.ajax({
+                url: urlapi,
+                method: "GET",
+                success: function (data) {
+                    console.log(data);
+
+                    $("#hasil").show();
+
+                    let suhuC = data.current.temp_c;
+                    let suhuF = data.current.temp_f;
+                    let kelembapan = data.current.humidity;
+                    let lokasi = data.location.name;
+                    let negara = data.location.country;
+                    let provinsi = data.location.region;
+                    let kecamatan = data.location.name;
+                    let longitude = data.location.lon;
+                    let latitude = data.location.lat;
+
+                    // tampilkan data ke elemen HTML
+                    $("#namaLokasi").text(lokasi);
+                    $("#tempC").text(suhuC);
+                    $("#tempF").text(suhuF);
+                    $("#humidity").text(kelembapan);
+                    $("#country").text(negara);
+                    $("#region").text(provinsi);
+                    $("#localtime").text(kecamatan);
+                    $("#lon").text(longitude);
+                    $("#lat").text(latitude);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Lokasi tidak ditemukan atau API error!");
+                }
+            });
+        });
     </script>
+
 </body>
 </html>
