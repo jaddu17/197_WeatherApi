@@ -24,7 +24,13 @@
                 const l = document.getElementById("lokasi");
                 let suhuC = data.current.temp_c;
                 let suhuF = data.current.temp_f;
+                let kelembapan = data.current.humidity;
                 let lokasi = data.location.name;
+                let negara = data.location.country;
+                let provinsi = data.location.region;
+                let kecamatan = data.location.tz_id;
+                let longitude = data.location.lon;
+                let latitude = data.location.lat;
                 v.innerHTML = suhu;
                 l.innerHTML = lokasi;
             },
